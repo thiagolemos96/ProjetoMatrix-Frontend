@@ -1,4 +1,4 @@
-//Objeto Participante
+﻿//Objeto Participante
 function Participante() {
     this.nome = "";
     this.sobrenome = "";
@@ -17,19 +17,13 @@ function Participante() {
 function SistemaCadastro() {
 
     //Onde os participantes ficarão armazenados
+
     var participantes = [];
 
     function adicionarParticipante(nome, sobrenome, email, idade, sexo) {
+        
+        if(obterParticipante(email) === undefined){
 
-    var emailExistente = -1;
-
-        for(var i = 0; i < participantes.length; i++){
-             if(participantes[i].email === email){
-                emailExistente = i;
-            }
-        }
-
-        if(emailExistente === -1){
             var p = new Participante();
 
             p.nome = nome;
@@ -42,138 +36,108 @@ function SistemaCadastro() {
         }  
 
         else{
-            throw new Participante();
+
+            throw new error("O e-mail" + email + "já está cadastrado");
         }
 
     }
 
     function removerParticipante(email) {
 
-        for(var i = 0; i < participantes.length; i++){
-            if(participantes[i].email === email){
-                participantes.splice(i,1);
-            }
-        }
+        var i = participantes.findIndex(function(email){
+
+            return email.email === email;
+        })
+
+	participantes.splice(i,1);
     }
     
     function buscarParticipantesPorNome(nome){
 
-        var alunos = [] ; 
+        var alunos = participantes.filter(function(nomesDosAlunos){
 
-         for(var i = 0; i < participantes.length; i++){
-            if(participantes[i].nome === nome){
-                alunos.push(participantes[i]);
-                 }
-             }
+            return nomesDosAlunos.nome === nome;
+        });
+
         return alunos;
     }   
 
     function buscarParticipantesPorSexo(sexo){
 
-        var alunos = [] ; 
+        var alunos = participantes.filter(function(sexoDosAlunos){
 
-        for(var i = 0; i < participantes.length; i++){
-             if(participantes[i].sexo === sexo){
-                alunos.push(participantes[i]);
-            }
-        }
+            return sexoDosAlunos.sexo === sexo;
+        });
+
         return alunos;
     }
 
     function buscarParticipantesAprovados(){
 
-        var apro = [] ;
+        var alunos = participantes.filter(function(aprovados){
 
-        for(var i = 0; i < participantes.length; i++){
-            if(participantes[i].aprovado === true){
-                apro.push(participantes[i]);
-            }
-        }
-        return apro;
+             return aprovados.aprovado === true;
+        });
+
+        return alunos;
     }
 
     function buscarParticipantesReprovados(){
 
-        var repro = [] ;
+        var alunos = participantes.filter(function(reprovados){
 
-        for(var i = 0; i < participantes.length; i++){
-            if(participantes[i].aprovado === false){
-                repro.push(participantes[i]);
-            }
-        }
-        return repro;
+            return reprovados.nota == false;
+        });
+
+        return alunos;
     }
 
     function obterParticipante(email){
 
-        for(var i = 0; i < participantes.length; i++){
-            if(participantes[i].email === email){
-                return participantes[i];
-            }
-        }
+        var mail =  participantes.find(function(object){
+
+            return object.email === email;
+        });
+
+            return mail;
     }
 
     function adicionarNotaAoParticipante(email, nota){
 
-        for(var i = 0; i < participantes.length; i++){
-            if(participantes[i].email === email){
-                participantes[i].nota = nota;
-                if(participantes[i].nota >= 70){
-                    participantes[i].aprovado = true;
-                }
-                else
-                    participantes[i].aprovado = false;
-            }
-        }
+        var i = participantes.findIndex(function(achar){
 
+            return achar.email === email;
+        });
+
+        participantes[i].nota = nota;
+
+        participantes[i].aprovado = participantes[i].nota >= 70;
     }
 
     function obterMediaDasNotasDosParticipantes(){
 
-        var soma = 0;
+        var count = participantes.reduce(function(acumulador, valor){
 
-        for(var i = 0; i < participantes.length; i++){
-            soma = soma + participantes[i].nota;
-        }
-        return soma/participantes.length;
+            return acumulador + valor.nota;
+        },0);
+
+        return count/participantes.length;
     }
 
     function obterTotalDeParticipantes(){
+
         return participantes.length;
     }
 
     function verificarSeParticipanteEstaAprovado(email){
 
-        for(var i = 0; i < participantes.length; i++){
-            if(participantes[i].email === email){
-                return participantes[i].aprovado;
-            }
-        }
+        return obterParticipante(email).aprovado;
     }
 
     function obterQuantidadeDeParticipantesPorSexo(sexo){
-
-        var contadorSexoMasculino = 0;
-
-        var contadorSexoFeminino = 0;
-
-        if (sexo === 1){
-            for(var i = 0; i < participantes.length; i++){
-                if(participantes[i].sexo === 1){
-                    contadorSexoMasculino = contadorSexoMasculino + 1;
-                }
-            }
-        return contadorSexoMasculino;
-        }
-
-        else if(sexo === 2){
-            for(var i = 0; i < participantes.length; i++){
-                if(participantes[i].sexo === 2){
-                    contadorSexoFeminino = contadorSexoFeminino + 1;
-                }
-            }
-        return contadorSexoFeminino;
-        }
+       
+        return buscarParticipantesPorSexo(sexo).length;
+     
     }
 
     return {
