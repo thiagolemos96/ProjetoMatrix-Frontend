@@ -20,49 +20,156 @@ function SistemaCadastro() {
     var participantes = [];
 
     function adicionarParticipante(nome, sobrenome, email, idade, sexo) {
-        //implemente o código necessário
-        var p = new Participante();
-        p.nome = nome;
-        p.sobrenome = sobrenome;
-        p.email = email;
-        p.idade = idade;
-        p.sexo = sexo;
+        var emailExistente = -1;
 
-        participantes.push(p);
+        for(var i = 0; i < participantes.length; i++){
+             if(participantes[i].email === email){
+                emailExistente = i;
+            }
+        }
+        if(emailExistente === -1){
+            var p = new Participante();
+            p.nome = nome;
+            p.sobrenome = sobrenome;
+            p.email = email;
+            p.idade = idade;
+            p.sexo = sexo;
+
+            participantes.push(p);
+        }
+        else{
+            throw new Participante;
+        }
+            
     }
 
     function removerParticipante(email) {
-        //implemente o código necessário       
+
+        for(var i = 0; i < participantes.length; i++){
+            if(participantes[i].email === email){
+                participantes.splice(i,1);
+            }
+        }   
     }
+
     function buscarParticipantesPorNome(nome){
-        //implemente o código necessário
+
+        var alunos = [] ; 
+
+         for(var i = 0; i < participantes.length; i++){
+            if(participantes[i].nome === nome){
+                alunos.push(participantes[i]);
+                 }
+             }
+        return alunos;
     }    
+
     function buscarParticipantesPorSexo(sexo){
-        //implemente o código necessário
+
+        var alunos = [] ; 
+
+        for(var i = 0; i < participantes.length; i++){
+             if(participantes[i].sexo === sexo){
+                alunos.push(participantes[i]);
+            }
+        }
+        return alunos;
     }
+
     function buscarParticipantesAprovados(){
-        //implemente o código necessário
+
+        var apro = [] ;
+
+        for(var i = 0; i < participantes.length; i++){
+            if(participantes[i].aprovado === true){
+                apro.push(participantes[i]);
+            }
+        }
+        return apro;
     }
+
     function buscarParticipantesReprovados(){
-        //implemente o código necessário
+
+        var repro = [] ;
+
+        for(var i = 0; i < participantes.length; i++){
+            if(participantes[i].aprovado === false){
+                repro.push(participantes[i]);
+            }
+        }
+        return repro;
     }
+
     function obterParticipante(email){
-        //implemente o código necessário
+
+        for(var i = 0; i < participantes.length; i++){
+            if(participantes[i].email === email){
+                return participantes[i];
+            }
+        }
     }
+
     function adicionarNotaAoParticipante(email, nota){
-        //implemente o código necessário
+
+        for(var i = 0; i < participantes.length; i++){
+            if(participantes[i].email === email){
+                participantes[i].nota = nota;
+                if(participantes[i].nota >= 70){
+                    participantes[i].aprovado = true;
+                }
+                else
+                    participantes[i].aprovado = false;
+            }
+        }
     }
+
     function obterMediaDasNotasDosParticipantes(){
-        //implemente o código necessário
+
+        var soma = 0;
+
+        for(var i = 0; i < participantes.length; i++){
+            soma = soma + participantes[i].nota;
+        }
+        return soma/participantes.length;
     }
+
     function obterTotalDeParticipantes(){
+
         return participantes.length;
     }
+
     function verificarSeParticipanteEstaAprovado(email){
-        //implemente o código necessário
+
+        for(var i = 0; i < participantes.length; i++){
+            if(participantes[i].email === email){
+                return participantes[i].aprovado;
+            }
+        }
     }
+
     function obterQuantidadeDeParticipantesPorSexo(sexo){
-        //implemente o código necessário
+
+        var contadorSexoMasculino = 0;
+
+        var contadorSexoFeminino = 0;
+
+        if (sexo === 1){
+            for(var i = 0; i < participantes.length; i++){
+                if(participantes[i].sexo === 1){
+                    contadorSexoMasculino = contadorSexoMasculino + 1;
+                }
+            }
+        return contadorSexoMasculino;
+        }
+
+        else if(sexo === 2){
+            for(var i = 0; i < participantes.length; i++){
+                if(participantes[i].sexo === 2){
+                    contadorSexoFeminino = contadorSexoFeminino + 1;
+                }
+            }
+        return contadorSexoFeminino;
+        }
     }
 
     return {
