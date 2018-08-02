@@ -17,127 +17,52 @@ function Participante() {
 function SistemaCadastro() {
 
     //Onde os participantes ficarão armazenados
-
     var participantes = [];
 
     function adicionarParticipante(nome, sobrenome, email, idade, sexo) {
-        
-        if(obterParticipante(email) === undefined){
+        //implemente o código necessário
+        var p = new Participante();
+        p.nome = nome;
+        p.sobrenome = sobrenome;
+        p.email = email;
+        p.idade = idade;
+        p.sexo = sexo;
 
-            var p = new Participante();
-
-            p.nome = nome;
-            p.sobrenome = sobrenome;
-            p.email = email;
-            p.idade = idade;
-            p.sexo = sexo;
-
-            participantes.push(p);    
-        }  
-
-        else{
-
-            throw new error("O e-mail" + email + "já está cadastrado");
-        }
-
+        participantes.push(p);
     }
 
     function removerParticipante(email) {
-
-        var i = participantes.findIndex(function(email){
-
-            return email.email === email;
-        })
-
-	participantes.splice(i,1);
+        //implemente o código necessário       
     }
-    
     function buscarParticipantesPorNome(nome){
-
-        var alunos = participantes.filter(function(nomesDosAlunos){
-
-            return nomesDosAlunos.nome === nome;
-        });
-
-        return alunos;
-    }   
-
+        //implemente o código necessário
+    }    
     function buscarParticipantesPorSexo(sexo){
-
-        var alunos = participantes.filter(function(sexoDosAlunos){
-
-            return sexoDosAlunos.sexo === sexo;
-        });
-
-        return alunos;
+        //implemente o código necessário
     }
-
     function buscarParticipantesAprovados(){
-
-        var alunos = participantes.filter(function(aprovados){
-
-             return aprovados.aprovado === true;
-        });
-
-        return alunos;
+        //implemente o código necessário
     }
-
     function buscarParticipantesReprovados(){
-
-        var alunos = participantes.filter(function(reprovados){
-
-            return reprovados.nota == false;
-        });
-
-        return alunos;
+        //implemente o código necessário
     }
-
     function obterParticipante(email){
-
-        var mail =  participantes.find(function(object){
-
-            return object.email === email;
-        });
-
-            return mail;
+        //implemente o código necessário
     }
-
     function adicionarNotaAoParticipante(email, nota){
-
-        var i = participantes.findIndex(function(achar){
-
-            return achar.email === email;
-        });
-
-        participantes[i].nota = nota;
-
-        participantes[i].aprovado = participantes[i].nota >= 70;
+        //implemente o código necessário
     }
-
     function obterMediaDasNotasDosParticipantes(){
-
-        var count = participantes.reduce(function(acumulador, valor){
-
-            return acumulador + valor.nota;
-        },0);
-
-        return count/participantes.length;
+        //implemente o código necessário
     }
-
     function obterTotalDeParticipantes(){
-
         return participantes.length;
     }
-
     function verificarSeParticipanteEstaAprovado(email){
-
-        return obterParticipante(email).aprovado;
+        //implemente o código necessário
     }
-
     function obterQuantidadeDeParticipantesPorSexo(sexo){
-       
-        return buscarParticipantesPorSexo(sexo).length;
-     
+        //implemente o código necessário
     }
 
     return {
@@ -154,6 +79,4 @@ function SistemaCadastro() {
         verificarSeParticipanteEstaAprovado,
         obterQuantidadeDeParticipantesPorSexo    
     };
-
-
 }
