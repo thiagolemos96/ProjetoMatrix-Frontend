@@ -52,40 +52,40 @@ function SistemaCadastro() {
     
     function buscarParticipantesPorNome(nome){
 
-        var buscaNome = participantes.filter(function(nomesDosAlunos){
+        var nomeParticipantes = participantes.filter(function(nomesDosAlunos){
             return nomesDosAlunos.nome === nome;
         });
 
-        return buscaNome;
+        return nomeParticipantes;
     }   
 
     function buscarParticipantesPorSexo(sexo){
 
-        var buscaSexo = participantes.filter(function(sexoDosAlunos){
+        var sexoParticipantes = participantes.filter(function(sexoDosAlunos){
 
             return sexoDosAlunos.sexo === sexo;
         });
 
-        return buscaSexo;
+        return sexoParticipantes;
     }
 
     function buscarParticipantesAprovados(){
 
-        var buscaAprovados = participantes.filter(function(aprovados){
+        var participantesAprovados = participantes.filter(function(aprovados){
              return aprovados.aprovado === true;
             });
 
-            return buscaAprovados;
+            return participantesAprovados;
     }
 
     function buscarParticipantesReprovados(){
 
-        var buscaReprovados = participantes.filter(function(reprovados){
+        var participantesReprovados = participantes.filter(function(reprovados){
 
             return reprovados.nota == false;
             });
 
-            return buscaReprovados;
+            return participantesReprovados;
     }
 
     function obterParticipante(email){
