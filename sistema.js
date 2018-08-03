@@ -34,7 +34,7 @@ function SistemaCadastro() {
 
             participantes.push(p);
 
-            return participantes;
+            return p;
         }  
 
         else{

@@ -12,16 +12,17 @@ function Participante() {
 
 var salvarParticipante = document.getElementById("btnCadastro").addEventListener("click", function(e){
     var sexoSelecionado;
-    var nota = document.getElementById("nota").value;
+    //var nota = document.getElementById("nota").value;
+    var participante;
 
-    if(document.getElementById("masculino").checked){
+    if(document.getElementById("masculino").checked) {
         sexoSelecionado = "masculino";
     }
     else {
         sexoSelecionado = "feminino";
     } //verificar depois se algo foi de fato selecionado
     
-    var p = {
+    var p = { //criar nome melhor depois
         nome : document.getElementById("nome").value,
         sobrenome : document.getElementById("sobrenome").value,
         email : document.getElementById("email").value,
@@ -29,7 +30,25 @@ var salvarParticipante = document.getElementById("btnCadastro").addEventListener
         nota : document.getElementById("nota").value,
         sexo : sexoSelecionado
     }
-    var participante = sistema.adicionarParticipante(p.nome, p.sobrenome, p.email, p.idade, p.sexo, p.nota);
 
-    localStorage.setItem(1, JSON.stringify(participante));
+    participante = sistema.adicionarParticipante(p.nome, p.sobrenome, p.email, p.idade, p.sexo, p.nota);
+    alert("participabte " + participante);
+
+    if(localStorage.getItem("participantes") === null) { //se n tiver nada, salva o primeiro
+        alert("to no if");
+
+        var arrayCadastro = [participante];
+        localStorage.setItem("participantes", JSON.stringify(arrayCadastro));
+    }
+    else {
+        var participantesCadastro = JSON.parse(localStorage.getItem("participantes"));
+        //var tamanho = Object.keys(participantesCadastro).length;
+
+        //verificar se ja existe email cadastrado depois e n add em caso positivo
+        
+        alert("to no else");
+        participantesCadastro.push(participante);
+        localStorage.setItem("participantes", JSON.stringify(participantesCadastro));
+
+    }
 });
