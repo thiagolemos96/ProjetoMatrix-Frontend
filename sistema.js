@@ -19,7 +19,7 @@ function SistemaCadastro() {
     //Onde os participantes ficarão armazenados
     var participantes = [];
 
-    function adicionarParticipante(nome, sobrenome, email, idade, sexo) {
+    function adicionarParticipante(nome, sobrenome, email, idade, sexo, nota) {
 
         if(obterParticipante(email) === undefined){
 
@@ -30,8 +30,11 @@ function SistemaCadastro() {
             p.email = email;
             p.idade = idade;
             p.sexo = sexo;
+            p.nota = nota;
 
-            participantes.push(p);    
+            participantes.push(p);
+
+            return participantes;
         }  
 
         else{
