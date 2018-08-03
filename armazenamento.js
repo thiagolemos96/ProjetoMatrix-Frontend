@@ -31,12 +31,15 @@ var salvarParticipante = document.getElementById("btnCadastro").addEventListener
         sexo : sexoSelecionado
     }
 
+    if((p.nome || p.sobrenome || p.email || p.idade || p.sexo || p.nota === '') 
+    || 
+    p.nome || p.sobrenome || p.email || p.idade || p.sexo || p.nota === ' ') {
+        alert("Por favor, digite algo nos campos vazios.");
+        return ;
+    }
     participante = sistema.adicionarParticipante(p.nome, p.sobrenome, p.email, p.idade, p.sexo, p.nota);
-    alert("participabte " + participante);
 
     if(localStorage.getItem("participantes") === null) { //se n tiver nada, salva o primeiro
-        alert("to no if");
-
         var arrayCadastro = [participante];
         localStorage.setItem("participantes", JSON.stringify(arrayCadastro));
     }
@@ -46,7 +49,6 @@ var salvarParticipante = document.getElementById("btnCadastro").addEventListener
 
         //verificar se ja existe email cadastrado depois e n add em caso positivo
         
-        alert("to no else");
         participantesCadastro.push(participante);
         localStorage.setItem("participantes", JSON.stringify(participantesCadastro));
 
