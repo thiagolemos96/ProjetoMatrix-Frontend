@@ -1,99 +1,116 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <!-- Meta tags Obrigatórias -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+<head>
+  <!-- Meta tags Obrigatórias -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <title>Controle de Participantes</title>
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <h1>Controle de Participantes - Projeto Matrix 3</h1>
-    </nav>
-    <br>
-    <form>
-            <div class="form-group row col-md-5">
-                <label for="nome" class="col-sm-2 col-form-label">Nome:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="nome" required placeholder="Ex:Thiago">
-                </div>
-            </div>
-            <div class="form-group row col-md-5">
-                <label for="sobrenome" class="col-sm-2 col-form-label">Sobrenome:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="sobrenome" required placeholder="Ex:Lemos">
-                </div>
-            </div>
-            <div class="form-group row col-md-5">
-              <label for="email" class="col-sm-2 col-form-label">Email:</label>
-              <div class="col-sm-10">
-                    <input type="email" class="form-control" id="email" required placeholder="email@exemplo.com.br">
-              </div>
-            </div>
-            <div class="form-group row col-md-5">
-                <label for="idade" class="col-sm-2 col-form-label">Idade:</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" id="idade" required placeholder="Ex:22">
-                </div>
-            </div>
-            <div class="form-group row col-md-5">
-                <label for="nota" class="col-sm-2 col-form-label">Nota:</label>
-                <div class="col-sm-10">
-                    <input type="number" class="form-control" id="nota" required placeholder="Ex:80">
-                </div>
-            </div>
-            <fieldset class="form-group">
-              <div class="row col-md-5">
-                <legend class="col-form-label col-sm-2 pt-0">Sexo:</legend>
-                <div class="col-sm-10">
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gridRadios" id="masculino" value="1" checked>
-                    <label class="form-check-label" for="masculino">
-                      Masculino
-                    </label>
-                  </div>
-                  <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="gridRadios" id="feminino" value="2">
-                    <label class="form-check-label" for="feminino">
-                      Feminino
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </fieldset>
-            <div class="form-group row">
-              <div class="col-sm-10">
-                <button type="submit" class="btn btn-danger" id="btnCadastro">Cadastrar</button>
-              </div>
-            </div>
-          </form>
-    <table class="table">
-                <thead class="bg-light">
-                  <tr>
-                    <th scope="col">Nome Completo</th>
-                    <th scope="col">Idade</th>
-                    <th scope="col">Sexo</th>
-                    <th scope="col">Nota</th>
-                    <th scope="col">Aprovado</th>
-                    <th scope="col"> </th>
-                  </tr>
-                </thead>
-                <tbody>
-                </tbody>
-              </table>
-    <!-- JavaScript (Opcional) -->
-    <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+    crossorigin="anonymous">
 
-    <script src="sistema.js"></script>
-    <script src="armazenamento.js"></script>
-    <!--document.querySelector-->
-    <!--inmerHTML-->
-  </body>
+  <title>Controle de Participantes</title>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <h1>Controle de Participantes - Projeto Matrix 3</h1>
+  </nav>
+  <br>
+  <form>
+    <div class="form-group row col-md-5">
+      <label for="nome" class="col-sm-2 col-form-label">Nome:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="nome" required placeholder="Ex:Thiago">
+      </div>
+    </div>
+    <div class="form-group row col-md-5">
+      <label for="sobrenome" class="col-sm-2 col-form-label">Sobrenome:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="sobrenome" required placeholder="Ex:Lemos">
+      </div>
+    </div>
+    <div class="form-group row col-md-5">
+      <label for="email" class="col-sm-2 col-form-label">Email:</label>
+      <div class="col-sm-10">
+        <input type="email" class="form-control" id="email" required placeholder="email@exemplo.com.br">
+      </div>
+    </div>
+    <div class="form-group row col-md-5">
+      <label for="idade" class="col-sm-2 col-form-label">Idade:</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" id="idade" required placeholder="Ex:22">
+      </div>
+    </div>
+    <div class="form-group row col-md-5">
+      <label for="nota" class="col-sm-2 col-form-label">Nota:</label>
+      <div class="col-sm-10">
+        <input type="number" class="form-control" id="nota" required placeholder="Ex:80">
+      </div>
+    </div>
+    <fieldset class="form-group">
+      <div class="row col-md-5">
+        <legend class="col-form-label col-sm-2 pt-0">Sexo:</legend>
+        <div class="col-sm-10">
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gridRadios" id="masculino" value="1" checked>
+            <label class="form-check-label" for="masculino">
+              Masculino
+            </label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="gridRadios" id="feminino" value="2">
+            <label class="form-check-label" for="feminino">
+              Feminino
+            </label>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <div class="form-group row">
+      <div class="col-sm-10">
+        <button type="submit" class="btn btn-danger" id="btnCadastro">Cadastrar</button>
+      </div>
+    </div>
+  </form>
+  <table class="table">
+    <thead class="bg-light">
+      <tr>
+        <th scope="col">Nome Completo</th>
+        <th scope="col">Idade</th>
+        <th scope="col">Sexo</th>
+        <th scope="col">Nota</th>
+        <th scope="col">Aprovado</th>
+        <th scope="col"> </th>
+        <th scope="col"> </th>
+      </tr>
+    </thead>
+    <tbody id="tabela">
+    </tbody>
+  </table>
+ 
+  <!--<footer class="page-footer">
+    <div class="footer-copyright">
+        <div class="container">
+            © 2017 MATRIX
+        </div>
+    </div>
+</footer>-->
+  <!-- JavaScript (Opcional) -->
+  <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+    crossorigin="anonymous"></script>
+
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  <script src="sistema.js"></script>
+  <script src="armazenamento.js"></script>
+  <!--document.querySelector-->
+  <!--inmerHTML-->
+</body>
+
 </html>

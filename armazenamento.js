@@ -1,43 +1,73 @@
 var sistema = SistemaCadastro();
 
-function Participante() {
-    this.nome = "";
-    this.sobrenome = "";
-    this.email = "";
-    this.idade = 0
-    this.sexo = 0
-    this.nota = 0
-    this.aprovado = false
+window.onload = function() { //ao carregar a pagina chama essa função
+    carregaDadosLocalStorageNaTabela();
+};
+
+function carregaDadosLocalStorageNaTabela() {
+    var dados = JSON.parse(localStorage.getItem("participantes"));
+
+    if(dados != null) {
+
+        for (var i = 0; i < dados.length; i++) { 
+            var tr = document.createElement("tr");
+            tr.appendChild(novaTd(dados[i].nome));
+            tr.appendChild(novaTd(dados[i].idade));
+            tr.appendChild(novaTd(dados[i].sexo));
+            tr.appendChild(novaTd(dados[i].nota));
+            tr.appendChild(novaTd(dados[i].aprovado));
+            tr.appendChild(novaTd("EDITAR", true));
+            tr.appendChild(novaTd("EXCLUIR", true));
+
+            document.getElementById("tabela").appendChild(tr);
+        }
+    }
 }
 
-var salvarParticipante = document.getElementById("btnCadastro").addEventListener("click", function(e){
+function novaTd(conteudo, temLink) {
+    var td = document.createElement("td");
+
+    if (typeof(temLink) === "undefined") {
+        td.innerHTML = conteudo;
+    }
+    else {
+        if (conteudo === 'EDITAR')
+            td.innerHTML = '<a href="#" onclick=\"editarDados()\">' + conteudo + '</a>'; 
+        else
+            td.innerHTML = '<a href="#" onclick="excluirDados()">' + conteudo + '</a>';
+    }
+    return td;
+}
+
+function editarDados() { 
+    
+}
+
+function excluirDados(email) {
+    sistema.removerParticipante(email);
+    alert("Registro excluído.");
+
+}
+
+var salvarParticipanteNoLocalStorage = document.getElementById("btnCadastro").addEventListener("click", function(){
     var sexoSelecionado;
-    //var nota = document.getElementById("nota").value;
+
     var participante;
 
     if(document.getElementById("masculino").checked) {
-        sexoSelecionado = "masculino";
+        sexoSelecionado = 1;
     }
     else {
-        sexoSelecionado = "feminino";
+        sexoSelecionado = 2;
     } //verificar depois se algo foi de fato selecionado
     
-    var p = { //criar nome melhor depois
-        nome : document.getElementById("nome").value,
-        sobrenome : document.getElementById("sobrenome").value,
-        email : document.getElementById("email").value,
-        idade : document.getElementById("idade").value,
-        nota : document.getElementById("nota").value,
-        sexo : sexoSelecionado
-    }
-
-    if((p.nome || p.sobrenome || p.email || p.idade || p.sexo || p.nota === '') 
-    || 
-    p.nome || p.sobrenome || p.email || p.idade || p.sexo || p.nota === ' ') {
-        alert("Por favor, digite algo nos campos vazios.");
-        return ;
-    }
-    participante = sistema.adicionarParticipante(p.nome, p.sobrenome, p.email, p.idade, p.sexo, p.nota);
+    participante = sistema.adicionarParticipante(document.getElementById("nome").value,
+    document.getElementById("sobrenome").value, 
+    document.getElementById("email").value,
+    document.getElementById("idade").value,
+    sexoSelecionado);
+    sistema.adicionarNotaAoParticipante(document.getElementById("email").value,
+    document.getElementById("nota").value);
 
     if(localStorage.getItem("participantes") === null) { //se n tiver nada, salva o primeiro
         var arrayCadastro = [participante];
@@ -45,12 +75,11 @@ var salvarParticipante = document.getElementById("btnCadastro").addEventListener
     }
     else {
         var participantesCadastro = JSON.parse(localStorage.getItem("participantes"));
-        //var tamanho = Object.keys(participantesCadastro).length;
-
         //verificar se ja existe email cadastrado depois e n add em caso positivo
         
         participantesCadastro.push(participante);
         localStorage.setItem("participantes", JSON.stringify(participantesCadastro));
 
     }
+    alert("Registro Adicionado");
 });
