@@ -1,85 +1,76 @@
-var sistema = SistemaCadastro();
+function ArmazenamentoLocal(key){
 
-window.onload = function() { //ao carregar a pagina chama essa função
-    carregaDadosLocalStorageNaTabela();
-};
-
-function carregaDadosLocalStorageNaTabela() {
-    var dados = JSON.parse(localStorage.getItem("participantes"));
-
-    if(dados != null) {
-
-        for (var i = 0; i < dados.length; i++) { 
-            var tr = document.createElement("tr");
-            tr.appendChild(novaTd(dados[i].nome));
-            tr.appendChild(novaTd(dados[i].idade));
-            tr.appendChild(novaTd(dados[i].sexo));
-            tr.appendChild(novaTd(dados[i].nota));
-            tr.appendChild(novaTd(dados[i].aprovado));
-            tr.appendChild(novaTd("EDITAR", true));
-            tr.appendChild(novaTd("EXCLUIR", true));
-
-            document.getElementById("tabela").appendChild(tr);
-        }
-    }
-}
-
-function novaTd(conteudo, temLink) {
-    var td = document.createElement("td");
-
-    if (typeof(temLink) === "undefined") {
-        td.innerHTML = conteudo;
-    }
-    else {
-        if (conteudo === 'EDITAR')
-            td.innerHTML = '<a href="#" onclick=\"editarDados()\">' + conteudo + '</a>'; 
-        else
-            td.innerHTML = '<a href="#" onclick="excluirDados()">' + conteudo + '</a>';
-    }
-    return td;
-}
-
-function editarDados() { 
+    if(localStorage.getItem(key) === null)
+        localStorage.setItem(key,"[]");
     
-}
+    function adicionarLocal(item){
 
-function excluirDados(email) {
-    sistema.removerParticipante(email);
-    alert("Registro excluído.");
+        var participantes = desfragmentar();
 
-}
+        participantes.push(item);
 
-var salvarParticipanteNoLocalStorage = document.getElementById("btnCadastro").addEventListener("click", function(){
-    var sexoSelecionado;
-
-    var participante;
-
-    if(document.getElementById("masculino").checked) {
-        sexoSelecionado = 1;
+        fragmentar(participantes);
     }
-    else {
-        sexoSelecionado = 2;
-    } //verificar depois se algo foi de fato selecionado
-    
-    participante = sistema.adicionarParticipante(document.getElementById("nome").value,
-    document.getElementById("sobrenome").value, 
-    document.getElementById("email").value,
-    document.getElementById("idade").value,
-    sexoSelecionado);
-    sistema.adicionarNotaAoParticipante(document.getElementById("email").value,
-    document.getElementById("nota").value);
 
-    if(localStorage.getItem("participantes") === null) { //se n tiver nada, salva o primeiro
-        var arrayCadastro = [participante];
-        localStorage.setItem("participantes", JSON.stringify(arrayCadastro));
+    function desfragmentar(){
+        var itemF = localStorage.getItem(key);
+        return JSON.parse(itemF);
     }
-    else {
-        var participantesCadastro = JSON.parse(localStorage.getItem("participantes"));
-        //verificar se ja existe email cadastrado depois e n add em caso positivo
+
+    function fragmentar(participantes){
+        var itemF = JSON.stringify(participantes);
+        localStorage.setItem(key, itemF);
+    }
+
+    function removerLocal(propriedade, valor){
+        var itens = desfragmentar();
+        var index = itens.findIndex((elemento) => {
+            return elemento[propriedade] === valor;
+        });
+        itens.splice(index, 1);
+        fragmentar(itens);
+    }
+
+    function atualizar(item, propriedade) {
+ 
+        var itens = desfragmentar();
         
-        participantesCadastro.push(participante);
-        localStorage.setItem("participantes", JSON.stringify(participantesCadastro));
-
+        var index = itens.findIndex((elemento) => {
+            return elemento[propriedade] === item[propriedade]
+        });
+        
+        itens[index] = item;
+        
+        fragmentar(itens);
     }
-    alert("Registro Adicionado");
-});
+
+    function obterItem(propriedade, valor) {
+        var itens = desfragmentar();
+        return itens.find((elemento) => {
+             return elemento[propriedade] === valor; }
+            );
+    }
+
+    function obterItens(propriedade, valor) {
+        var itens = desfragmentar();
+        return itens.find((elemento) => { 
+            return elemento[propriedade] === valor; 
+        })
+    }
+
+    function obterTodosOsItens(){
+        return desfragmentar();
+    }
+
+    return {
+        adicionarLocal,
+        desfragmentar,
+        fragmentar,
+        removerLocal,
+        atualizar,
+        obterItem,
+        obterItens,
+        obterTodosOsItens
+    };
+
+}

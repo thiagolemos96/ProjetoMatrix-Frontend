@@ -18,7 +18,8 @@
     <h1>Controle de Participantes - Projeto Matrix 3</h1>
   </nav>
   <br>
-  <form>
+  <form id="formulario">
+      <input type="hidden" id="atualizacaoDeDados" value="false"> <!--testanto-->
     <div class="form-group row col-md-5">
       <label for="nome" class="col-sm-2 col-form-label">Nome:</label>
       <div class="col-sm-10">
@@ -70,7 +71,7 @@
     </fieldset>
     <div class="form-group row">
       <div class="col-sm-10">
-        <button type="submit" class="btn btn-danger" id="btnCadastro">Cadastrar</button>
+        <button type="button" class="btn btn-danger"  id="btnCadastro">Cadastrar</button>
       </div>
     </div>
   </form>
@@ -106,9 +107,9 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
     crossorigin="anonymous"></script>
 
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-  <script src="sistema.js"></script>
   <script src="armazenamento.js"></script>
+  <script src="sistema.js"></script>
+  <script src="intermediario.js"></script>
   <!--document.querySelector-->
   <!--inmerHTML-->
 </body>
