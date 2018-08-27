@@ -18,9 +18,9 @@ function Participante() {
 function SistemaCadastro() {
 
     //Onde os participantes ficarão armazenados
-    var armazenamento = new ArmazenamentoLocal("participantes");
+    var armazenamento = new ArmazenamentoHttp();
 
-    function adicionarParticipante(nome, sobrenome, email, idade, sexo) {
+    function adicionarParticipante(nome, sobrenome, email, idade, sexo, nota) {
 
         if(obterParticipante(email) === undefined){
 
@@ -31,8 +31,9 @@ function SistemaCadastro() {
             p.email = email;
             p.idade = idade;
             p.sexo = sexo;
+            p.nota = nota;
 
-            armazenamento.adicionarLocal(p);
+            armazenamento.adicionar(p);
 
         }  
 
@@ -46,7 +47,7 @@ function SistemaCadastro() {
 
     function removerParticipante(email) {
 
-        armazenamento.removerLocal("email", email);
+        armazenamento.remover("email", email);
 
     }
 
@@ -58,7 +59,7 @@ function SistemaCadastro() {
         
         processarNotaDoParticipante(participante, nota);
 
-        armazenamento.atualizar(participante, email);
+        armazenamento.atualizar(participante);
         
     }
     
@@ -83,7 +84,8 @@ function SistemaCadastro() {
 
     }
     function obterParticipante(email){
-
+							   //id
+		// return armazenamento.obterItem("id", id);  
         return armazenamento.obterItem("email", email);    
 
     }
@@ -101,7 +103,7 @@ function SistemaCadastro() {
 
     function adicionarNotaAoParticipante(email, nota){
 
-        var participante = armazenamento.obterItem("email", email);
+        var participante = armazenamento.obterItem("email",email);
         processarNotaDoParticipante(participante, nota);
         armazenamento.atualizar(participante, "email");
 
