@@ -83,9 +83,7 @@ function SistemaCadastro() {
         return armazenamento.obterItens("aprovado", false);
 
     }
-    function obterParticipante(email){
-							   //id
-		// return armazenamento.obterItem("id", id);  
+    function obterParticipante(email){ 
         return armazenamento.obterItem("email", email);    
 
     }
