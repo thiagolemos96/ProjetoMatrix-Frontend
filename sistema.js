@@ -55,7 +55,10 @@ function SistemaCadastro() {
 
 		var participante = obterParticipante(email);
        
-        participante = {nome,sobrenome,email,idade,sexo};
+        participante.nome = nome;
+        participante.sobrenome = sobrenome;
+        participante.idade = idade;
+        participante.sexo = sexo;
         
         processarNotaDoParticipante(participante, nota);
 
