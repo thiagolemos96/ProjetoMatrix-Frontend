@@ -1,56 +1,32 @@
 function ArmazenamentoHttp(){
 
 	function adicionar(item){
-
-        var participante = JSON.stringify(item);
-        
-		$.ajax({
-			type: "POST",
-			url: 'http://matrix.avalie.net/api/participantes/',
-			contentType: "application/json; charset=utf-8",
-			dataType: "json",
-			data: participante,
-            async: false
-            
-        });	
+		return axios.post('http://matrix.avalie.net/api/participantes/', item)
+			.then(response => {
+				return response.data;
+			})
+			.catch(error => {
+				throw error.response.data.message;
+			})
         
     }	
     
-	function remover(propriedade, valor){
+	function remover(id){
 
-        var participante = obterItem(propriedade, valor);
-        
-		$.ajax({
-			type: "DELETE",
-			url: 'http://matrix.avalie.net/api/participantes/'+participante.id,
-			dataType: "json",
-            async: true
-            
-        });
+		return axios.delete('http://matrix.avalie.net/api/participantes/' + id)
+			.then(response => response.data);
         
     }
     
 	function atualizar(item){
 
-        var participante = JSON.stringify(item);
-        
-		$.ajax({
-			type: "PUT",
-			url: 'http://matrix.avalie.net/api/participantes/'+item.id,
-			contentType: "application/json; charset=utf-8",
-			dataType: "json",
-			data: participante,
-            async: false
-            
-        });  
+		return axios.put('http://matrix.avalie.net/api/participantes/' + item.id, item)
+			.then(response => response.data);
         
 	}
-	function obterItem(propriedade, valor){
-
-		return obterTodosOsItens().find(function(objeto){
-            return objeto[propriedade] === valor;
-            
-        });
+	function obterItem(id){
+		return axios.get('http://matrix.avalie.net/api/participantes/' + id)
+			.then(response => response.data);
         
 	}
 	function obterItens(propriedade, valor){
@@ -61,22 +37,8 @@ function ArmazenamentoHttp(){
 		});
 	}
 	function obterTodosOsItens(){
-
-        var itens = [];
-        
-		$.ajax({
-			type: 'GET',
-			url: 'http://matrix.avalie.net/api/participantes/',
-			dataType: "json",
-			async: false,
-			success: function(data){
-                itens = data;
-                
-            }
-            
-        });
-        
-        return itens;
+		return axios.get('http://matrix.avalie.net/api/participantes/')
+			.then(response =>response.data);
         
     }
     
