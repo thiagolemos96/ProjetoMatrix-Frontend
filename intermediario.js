@@ -16,20 +16,11 @@ function carregarDadosNaTabela(){
     sistema.obterParticipantes()
         .then(objeto =>{
             objeto.forEach(function(participantes){
-                if(participantes.sexo === 1){
-                    sexoParticipante = 'Masculino';
-                }
-                else{
-                    sexoParticipante = 'Feminino';
-                }
-                if(participantes.aprovado === true){
-                    situacaoParticipante = 'Sim';
-                }
-                else{
-                    situacaoParticipante = 'Não';
-                }
+                participantes.sexo === 1 ? sexoParticipante = 'Masculino' : sexoParticipante = 'Feminino';
+                
+                participantes.aprovado === true ? situacaoParticipante = 'Sim' : situacaoParticipante = 'Não';
             
-                 document.getElementById("tabela").innerHTML += '<tr><td>'+participantes.id+'</td><td>'+ participantes.nome +' '+ participantes.sobrenome+ '</td><td>' + participantes.idade + '</td><td>' + sexoParticipante + '</td><td>' + participantes.nota + '</td><td>' + situacaoParticipante + '</td><td>' + '<a href="javascript:void(0)" onclick="editarDados(\'' + participantes.id + '\')">Editar</a>' + ' ' + '<a href="javascript:void(0)" onclick="excluirDados(\'' + participantes.id + '\')">Excluir</a>' + '</td></tr>'
+                document.getElementById("tabela").innerHTML += '<tr><td>'+participantes.id+'</td><td>'+ participantes.nome +' '+ participantes.sobrenome+ '</td><td>' + participantes.idade + '</td><td>' + sexoParticipante + '</td><td>' + participantes.nota + '</td><td>' + situacaoParticipante + '</td><td>' + '<a href="javascript:void(0)" onclick="editarDados(\'' + participantes.id + '\')">Editar</a>' + ' ' + '<a href="javascript:void(0)" onclick="excluirDados(\'' + participantes.id + '\')">Excluir</a>' + '</td></tr>'
                 
             })
         })
@@ -59,12 +50,7 @@ function excluirDados(id) {
 }
 
 var salvarParticipante = document.getElementById("btnCadastro").addEventListener("click",function (){
-    if(document.getElementById("masculino").checked) {
-        sexoSelecionado = 1;
-    }
-    else {
-        sexoSelecionado = 2;
-    } //verifica qual sexo foi selecionado
+    document.getElementById("masculino").checked ? sexoSelecionado = 1 : sexoSelecionado = 2;  //verifica qual sexo foi selecionado
 
     if(editor === false){
         sistema.adicionarParticipante(
