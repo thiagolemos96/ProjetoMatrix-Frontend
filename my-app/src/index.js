@@ -1,9 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
+import MostrarDadosNaTela from "./componentes/app";
 import registerServiceWorker from "./registerServiceWorker";
-import MostrarDadosNaTabela from "./intermediarioReact";
 
-ReactDOM.render(<MostrarDadosNaTabela />, document.getElementById("root"));
+ReactDOM.render(<MostrarDadosNaTela />, document.getElementById("root"));
 registerServiceWorker();
