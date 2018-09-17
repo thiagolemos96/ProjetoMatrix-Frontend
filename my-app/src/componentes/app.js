@@ -1,35 +1,10 @@
 import React, { Component } from "react";
 import axios from "axios";
 
-/*function Participante() {
-  (this.nome = ""),
-    (this.sobrenome = ""),
-    (this.email = ""),
-    (this.idade = 0),
-    (this.sexo = 0),
-    (this.nota = 0),
-    (this.aprovado = false);
-}
-
-function adicionarParticipante(nome, sobrenome, email, idade, sexo, nota) {
-  var p = new Participante();
-
-  p.nome = nome;
-  p.sobrenome = sobrenome;
-  p.email = email;
-  p.idade = idade;
-  p.sexo = sexo;
-  p.nota = nota;
-  p.aprovado = nota >= 70;
-
-  console.log(p);
-  return p;
-}*/
-
 class MeuForm extends Component {
   constructor() {
-    super(); //chama o construtor do Component
-    this.state = { participantes: [] }; //inicialmente lista esta com o state vazio
+    super();
+    this.state = { participantes: [] };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -37,7 +12,15 @@ class MeuForm extends Component {
     console.log("edit", id);
   }
 
-  excluirDados(id) {}
+  excluirDados(id) {
+    axios
+      .delete("http://matrix.avalie.net/api/participantes/" + id)
+      .then(response => {
+        alert("Participante Excluido !!");
+        window.location.reload(true);
+        return response.data;
+      });
+  }
 
   setNome(event) {
     this.setState({ nome: event.target.value });
@@ -97,49 +80,6 @@ class MeuForm extends Component {
       });
     window.location.reload(true);
   };
-
-  mostrarTabela() {
-    return (
-      <tbody id="tabela">
-        {this.state.participantes.map(objeto => {
-          var sexoSelecionado = objeto.sexo === 1 ? "Masculino" : "Feminino";
-          var situacaoParticipantes = objeto.aprovado ? "Sim" : "Não";
-          return (
-            <tr>
-              <td>{objeto.id}</td>
-              <td>
-                {objeto.nome} {objeto.sobrenome}
-              </td>
-              <td>{objeto.idade}</td>
-              <td>{sexoSelecionado}</td>
-              <td>{objeto.nota}</td>
-              <td>{situacaoParticipantes}</td>
-              <td>
-                <a
-                  href="javascript:void(0)"
-                  onClick={e => {
-                    this.editarDados(objeto.id);
-                  }}
-                >
-                  Editar
-                </a>
-              </td>
-              <td>
-                <a
-                  href="javascript:void(0)"
-                  onClick={e => {
-                    this.excluirDados(objeto.id);
-                  }}
-                >
-                  Excluir
-                </a>
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
-    );
-  }
 
   render() {
     return (
@@ -299,7 +239,46 @@ class MeuForm extends Component {
               <th scope="col"> </th>
             </tr>
           </thead>
-          {this.mostrarTabela()}
+          return (
+          <tbody id="tabela">
+            {this.state.participantes.map(objeto => {
+              var sexoSelecionado =
+                objeto.sexo === 1 ? "Masculino" : "Feminino";
+              var situacaoParticipantes = objeto.aprovado ? "Sim" : "Não";
+              return (
+                <tr>
+                  <td>{objeto.id}</td>
+                  <td>
+                    {objeto.nome} {objeto.sobrenome}
+                  </td>
+                  <td>{objeto.idade}</td>
+                  <td>{sexoSelecionado}</td>
+                  <td>{objeto.nota}</td>
+                  <td>{situacaoParticipantes}</td>
+                  <td>
+                    <a
+                      href="javascript:void(0)"
+                      onClick={e => {
+                        this.editarDados(objeto.id);
+                      }}
+                    >
+                      Editar
+                    </a>
+                  </td>
+                  <td>
+                    <a
+                      href="javascript:void(0)"
+                      onClick={e => {
+                        this.excluirDados(objeto.id);
+                      }}
+                    >
+                      Excluir
+                    </a>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
         </table>
       </div>
     );
